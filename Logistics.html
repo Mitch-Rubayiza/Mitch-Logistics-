@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitch Logistics | Advanced Dispatch & Precision Delivery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #0056b3;
+            --secondary: #ff6b00;
+            --accent: #00a8ff;
+            --success: #28a745;
+            --dark: #333;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #004494;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: #e05a00;
+        }
+        
+        .btn-accent {
+            background: var(--accent);
+        }
+        
+        .btn-accent:hover {
+            background: #0093e0;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3, h4 {
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Header Styles */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+        }
+        
+        .logo-icon:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo-text span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1566576912329-8cb63e31d7c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 150px 0;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        /* Dispatch System Section */
+        .dispatch-system {
+            background: var(--light);
+        }
+        
+        .dispatch-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .dispatch-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .dispatch-feature {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .dispatch-feature i {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        /* Service Levels & Pricing */
+        .pricing {
+            background: white;
+        }
+        
+        .pricing-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .pricing-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--secondary);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--secondary);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 0 0 0 8px;
+        }
+        
+        .pricing-header {
+            padding: 30px;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+        }
+        
+        .pricing-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .price-period {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .pricing-features {
+            padding: 30px;
+        }
+        
+        .pricing-features ul {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .pricing-features li i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        .pricing-features li.disabled {
+            color: var(--gray);
+        }
+        
+        .pricing-features li.disabled i {
+            color: var(--gray);
+        }
+        
+        /* Industries Section */
+        .industries {
+            background: var(--light);
+        }
+        
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .industry-item {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .industry-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .industry-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        /* Clients Section */
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .client-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .client-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .client-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(to right, var(--primary), #003d82);
+            color: white;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .stat-item {
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.1rem;
+        }
+        
+        /* Tracking Section */
+        .tracking {
+            background: white;
+            text-align: center;
+        }
+        
+        .tracking-box {
+            background: var(--light);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .tracking-input {
+            display: flex;
+            margin: 30px 0;
+        }
+        
+        .tracking-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .tracking-input button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .tracking-input button:hover {
+            background: #e05a00;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: var(--light);
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .cta h2 {
+            color: var(--dark);
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: #222;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            nav {
+                width: 100%;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                margin-top: 20px;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-btns .btn {
+                width: 100%;
+                max-width: 250px;
+                margin-bottom: 10px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .dispatch-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .dispatch-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pricing-tab {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .tracking-input {
+                flex-direction: column;
+            }
+            
+            .tracking-input input {
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+            
+            .tracking-input button {
+                border-radius: 4px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">Mitch <span>Logistics</span></div>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#dispatch">Dispatch System</a></li>
+                    <li><a href="#pricing">Service Levels</a></li>
+                    <li><a href="#industries">Industries</a></li>
+                    <li><a href="#clients">Clients</a></li>
+                    <li><a href="#tracking">Tracking</a></li>
+                    <li><a href="#contact" class="btn btn-secondary">Get Quote</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Advanced Dispatch & Precision Delivery</h1>
+            <p>Mitch Logistics combines cutting-edge dispatch technology with tiered delivery services for Manufacturing, Distribution, Wholesale, Contractors, and Retail industries.</p>
+            <div class="hero-btns">
+                <a href="#pricing" class="btn btn-accent">View Service Levels</a>
+                <a href="#contact" class="btn btn-secondary">Get a Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dispatch System Section -->
+    <section class="dispatch-system" id="dispatch">
+        <div class="container">
+            <h2>Advanced Dispatch & Scheduling System</h2>
+            <div class="dispatch-content">
+                <div>
+                    <h3>Intelligent Logistics Technology</h3>
+                    <p>Our proprietary dispatch system uses AI-powered algorithms to optimize routes, reduce delivery times, and maximize efficiency across your supply chain.</p>
+                    <div class="dispatch-features">
+                        <div class="dispatch-feature">
+                            <i class="fas fa-route"></i>
+                            <h4>Route Optimization</h4>
+                            <p>AI-powered route planning for maximum efficiency</p>
+                        </div>
+                        <div class="dispatch-feature">
+                            <i class="fas fa-clock"></i>
+                            <h4>Real-Time Tracking</h4>
+                            <p>Live updates and ETA predictions for all shipments</p>
+                        </div>
+                        <div class="dispatch-feature">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>Performance Analytics</h4>
+                            <p>Comprehensive data insights for continuous improvement</p>
+                        </div>
+                        <div class="dispatch-feature">
+                            <i class="fas fa-sync-alt"></i>
+                            <h4>Dynamic Scheduling</h4>
+                            <p>Adapt to changes and disruptions in real-time</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Dispatch System Dashboard" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Levels & Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>Service Levels & Pricing</h2>
+            <div class="pricing-tabs">
+                <button class="pricing-tab active" data-category="domestic">Domestic Services</button>
+                <button class="pricing-tab" data-category="international">International Services</button>
+                <button class="pricing-tab" data-category="specialized">Specialized Services</button>
+            </div>
+            
+            <div class="pricing-grid">
+                <!-- Basic Service -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Standard Delivery</h3>
+                        <div class="price">$89<span class="price-period">/shipment</span></div>
+                        <p>Economical & Reliable</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 3-5 Business Days</li>
+                            <li><i class="fas fa-check"></i> Basic Tracking</li>
+                            <li><i class="fas fa-check"></i> Up to 50 lbs</li>
+                            <li><i class="fas fa-check"></i> Standard Insurance</li>
+                            <li><i class="fas fa-check"></i> Email Notifications</li>
+                            <li class="disabled"><i class="fas fa-times"></i> Weekend Delivery</li>
+                            <li class="disabled"><i class="fas fa-times"></i> White Glove Service</li>
+                        </ul>
+                        <a href="#contact" class="btn" style="width: 100%; text-align: center;">Select Plan</a>
+                    </div>
+                </div>
+                
+                <!-- Express Service -->
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Express Delivery</h3>
+                        <div class="price">$149<span class="price-period">/shipment</span></div>
+                        <p>Fast & Tracked</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 1-2 Business Days</li>
+                            <li><i class="fas fa-check"></i> Real-Time Tracking</li>
+                            <li><i class="fas fa-check"></i> Up to 100 lbs</li>
+                            <li><i class="fas fa-check"></i> Enhanced Insurance</li>
+                            <li><i class="fas fa-check"></i> SMS & Email Alerts</li>
+                            <li><i class="fas fa-check"></i> Saturday Delivery</li>
+                            <li class="disabled"><i class="fas fa-times"></i> White Glove Service</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-secondary" style="width: 100%; text-align: center;">Select Plan</a>
+                    </div>
+                </div>
+                
+                <!-- Premium Service -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Premium Delivery</h3>
+                        <div class="price">$249<span class="price-period">/shipment</span></div>
+                        <p>Priority & Premium</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Same/Next Day</li>
+                            <li><i class="fas fa-check"></i> Live GPS Tracking</li>
+                            <li><i class="fas fa-check"></i> Up to 200 lbs</li>
+                            <li><i class="fas fa-check"></i> Full Value Insurance</li>
+                            <li><i class="fas fa-check"></i> 24/7 Support</li>
+                            <li><i class="fas fa-check"></i> Weekend & Holiday</li>
+                            <li><i class="fas fa-check"></i> White Glove Service</li>
+                        </ul>
+                        <a href="#contact" class="btn" style="width: 100%; text-align: center;">Select Plan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section class="industries" id="industries">
+        <div class="container">
+            <h2>Industries We Serve</h2>
+            <div class="industries-grid">
+                <div class="industry-item">
+                    <div class="industry-icon"><i class="fas fa-industry"></i></div>
+                    <h3>Manufacturing</h3>
+                    <p>Just-in-time delivery of raw materials and components to keep production lines running smoothly.</p>
+                </div>
+                <div class="industry-item">
+                    <div class="industry-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Distribution</h3>
+                    <p>Efficient warehouse-to-warehouse transport and inventory management solutions.</p>
+                </div>
+                <div class="industry-item">
+                    <div class="industry-icon"><i class="fas fa-pallet"></i></div>
+                    <h3>Wholesale</h3>
+                    <p>Cost-effective LTL and palletized services for businesses of all sizes.</p>
+                </div>
+                <div class="industry-item">
+                    <div class="industry-icon"><i class="fas fa-hard-hat"></i></div>
+                    <h3>Contractors</h3>
+                    <p>On-time delivery of materials and equipment to keep projects on schedule.</p>
+                </div>
+                <div class="industry-item">
+                    <div class="industry-icon"><i class="fas fa-store"></i></div>
+                    <h3>Retailing</h3>
+                    <p>Last-mile delivery and store fulfillment to keep shelves stocked and customers satisfied.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">15,000+</div>
+                    <div class="stat-text">Shipments Delivered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-text">On-Time Delivery Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-text">Satisfied Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-text">Dispatch Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clients">
+        <div class="container">
+            <h2>Our Valued Clients</h2>
+            <div class="clients-grid">
+                <div class="client-card">
+                    <div class="client-icon"><i class="fas fa-hard-hat"></i></div>
+                    <h3>Contractors</h3>
+                    <p>On-time delivery of materials to keep projects on schedule.</p>
+                </div>
+                <div class="client-card">
+                    <div class="client-icon"><i class="fas fa-store"></i></div>
+                    <h3>Dealers</h3>
+                    <p>Inventory management and timely replenishment services.</p>
+                </div>
+                <div class="client-card">
+                    <div class="client-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Developers</h3>
+                    <p>Bulk material transport for construction sites and developments.</p>
+                </div>
+                <div class="client-card">
+                    <div class="client-icon"><i class="fas fa-hammer"></i></div>
+                    <h3>Fabricators</h3>
+                    <p>Specialized handling for custom-built products and materials.</p>
+                </div>
+                <div class="client-card">
+                    <div class="client-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Traders</h3>
+                    <p>Flexible solutions for commodity and goods transportation.</p>
+                </div>
+                <div class="client-card">
+                    <div class="client-icon"><i class="fas fa-globe-americas"></i></div>
+                    <h3>Importers/Exporters</h3>
+                    <p>Global logistics with customs expertise for international trade.</p>
+                </div>
+                <div class="client-card">
+                    <div class="client-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>Sellers</h3>
+                    <p>Consistent inventory replenishment and distribution services.</p>
+                </div>
+                <div class="client-card">
+                    <div class="client-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>Event Managers</h3>
+                    <p>Timely delivery of event materials and equipment with precision scheduling.</p>
+                </div>
+                <div class="client-card">
+                    <div class="client-icon"><i class="fas fa-truck-loading"></i></div>
+                    <h3>Distributors</h3>
+                    <p>Streamlined distribution networks with optimized routing.</p>
+                </div>
+                <div class="client-card">
+                    <div class="client-icon"><i class="fas fa-industry"></i></div>
+                    <h3>Manufacturers</h3>
+                    <p>End-to-end logistics support from raw materials to finished products.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tracking Section -->
+    <section class="tracking" id="tracking">
+        <div class="container">
+            <h2>Track Your Shipment</h2>
+            <div class="tracking-box">
+                <p>Enter your tracking number to get real-time updates on your shipment</p>
+                <div class="tracking-input">
+                    <input type="text" placeholder="Enter tracking number">
+                    <button>Track</button>
+                </div>
+                <p>Don't have a tracking number? <a href="#contact">Contact us</a> for assistance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2>Ready to Optimize Your Logistics?</h2>
+            <p>Get a free, no-obligation quote for your delivery needs. Our logistics experts will provide a customized solution powered by our advanced dispatch system.</p>
+            <a href="#" class="btn btn-secondary">Get Your Quote Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Mitch Logistics</h3>
+                    <p>Your partner in precision delivery across industries and borders.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#dispatch">Dispatch System</a></li>
+                        <li><a href="#pricing">Service Levels</a></li>
+                        <li><a href="#industries">Industries</a></li>
+                        <li><a href="#clients">Clients</a></li>
+                        <li><a href="#tracking">Tracking</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Service Levels</h3>
+                    <ul>
+                        <li><a href="#pricing">Standard Delivery</a></li>
+                        <li><a href="#pricing">Express Delivery</a></li>
+                        <li><a href="#pricing">Premium Delivery</a></li>
+                        <li><a href="#pricing">Custom Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> (647) 854-9093</li>
+                        <li><i class="fas fa-envelope"></i> info@mitchlogistics.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 191 Bowes Road, Concord, ON L4K 1H9</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Mitch Logistics. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('nav').classList.remove('active');
+                }
+            });
+        });
+        
+        // Tracking form submission
+        document.querySelector('.tracking-input button').addEventListener('click', function() {
+            const trackingNumber = document.querySelector('.tracking-input input').value;
+            if(trackingNumber) {
+                alert(`Tracking shipment: ${trackingNumber}\n\nThis feature would connect to a real tracking system in a production environment.`);
+            } else {
+                alert('Please enter a tracking number');
+            }
+        });
+
+        // Stats counter animation
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                let current = 0;
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current) + (stat.textContent.includes('%') ? '%' : '+');
+                }, 20);
+            });
+        }
+
+        // Trigger stats animation when section is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(document.querySelector('.stats'));
+
+        // Pricing tabs functionality
+        document.querySelectorAll('.pricing-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.pricing-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // In a real implementation, you would filter pricing cards here
+                // based on the data-category attribute
+            });
+        });
+    </script>
+</body>
+</html>
